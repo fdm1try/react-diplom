@@ -1,18 +1,12 @@
+import React from 'react'
 import { NavLink } from 'react-router-dom';
+import { TCatalogItem } from './CatalogItem';
 
-export type TCatalogItem = {
-  id: number;
-  category: number;
-  title: string;
-  images: Array<string>;
-  price: number;
-}
-
-export interface ICatalogItem {
+export interface ICardView {
   item: TCatalogItem;
 }
 
-export const CatalogItem: React.FC<ICatalogItem> = ({item}) => {
+export const CardView: React.FC<ICardView> = ({item}) => {
   const itemPrice = () => {
     return `${Intl.NumberFormat().format(item.price)} руб.`;
   }
@@ -24,7 +18,7 @@ export const CatalogItem: React.FC<ICatalogItem> = ({item}) => {
       <div className='card-body'>
         <p className='card-text'>{item.title}</p>
         <p className='card-text'>{itemPrice()}</p>
-        <NavLink to={`/products/${item.id}.html`} className='btn btn-outline-primary'>
+        <NavLink to={`/catalog/${item.id}.html`} className='btn btn-outline-primary'>
           Заказать
         </NavLink>
       </div>
