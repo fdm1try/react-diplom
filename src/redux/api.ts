@@ -1,10 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { TCatalogItem } from '../components/CatalogCard';
-import { TCategory } from '../components/CatalogWidget/Categories';
+import { TCatalogItem, TCatalogItemDetails } from '../components/Catalog/CatalogItem';
+import { TCatalogCategory } from '../components/Catalog/CatalogCategories';
 
 export type TResponseItemList = Array<TCatalogItem>;
 
-export type TResponseCategoryList = Array<TCategory>;
+export type TResponseCategoryList = Array<TCatalogCategory>;
 
 export interface IRequestItemList {
   offset?: number;
@@ -32,9 +32,12 @@ export const api = createApi({
         if (q) params.append('q', q);
         return { url: `items?${params}` }
       },
+    }),    
+    item: build.query<TCatalogItemDetails, number>({
+      query: (id) => ({ url: `items/${id}` }),
     }),
   })
 })
 
-export const { useTopSalesQuery, useCategoriesQuery, useItemsQuery } = api;
+export const { useTopSalesQuery, useCategoriesQuery, useItemsQuery, useItemQuery } = api;
 export default api.reducer;
