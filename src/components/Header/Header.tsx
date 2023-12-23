@@ -1,3 +1,4 @@
+import logoImage from '../../assets/img/header-logo.png';
 import { useState } from 'react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -47,7 +48,7 @@ export const Header = () => {
         <Col>
           <nav className='navbar navbar-expand-sm navbar-light bg-light'>
               <NavLink className='navbar-brand' to='/'>
-                <img src='./img/header-logo.png' alt='Bosa Noga' />
+                <img src={logoImage} alt='Bosa Noga' />
               </NavLink>
             <div className='collapase navbar-collapse' id='navbarMain'>
               <Navigation />
