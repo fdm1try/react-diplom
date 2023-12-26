@@ -1,4 +1,6 @@
 import { useCatalogFilter } from '../../hooks';
+import { Error } from '../Error';
+import { Loader } from '../Loader';
 import { CatalogList } from './CatalogList';
 
 export type TCatalogFilter = {
@@ -11,13 +13,24 @@ export interface ICatalog {
 }
 
 export const Catalog: React.FC<ICatalog> = (props) => {
-  const { items, hasMoreItems, loadMoreItems, isLoading } = useCatalogFilter({ ...props.filter });
+  const { items, hasMoreItems, loadMoreItems, isLoading, error, refetch } = useCatalogFilter({ ...props.filter });
+
+  const errorMessage = 'Не удалось получить данные с сервера.';
+  const errorDetails = () => {
+    if (!error || !('status' in error) || !error.data) return;
+    return `HTTP code ${error.status}: ${JSON.stringify(error.data)}`;
+  }
+
   return (
     <>
       <CatalogList view='card' items={items} />
+      { isLoading && <Loader /> }
       <div className='text-center'>
-        { hasMoreItems && (
-          <button className='btn btn-outline-primary' disabled={isLoading } onClick={loadMoreItems}>Загрузить ещё</button>
+        { hasMoreItems && !isLoading && !error && (
+          <button className='btn btn-outline-primary' onClick={loadMoreItems}>Загрузить ещё</button>
+        )}
+        { !isLoading && error && (
+          <Error variant='inline' details={errorDetails()} message={errorMessage} onRetry={refetch} />
         )}
       </div>
     </>
