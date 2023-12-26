@@ -1,10 +1,23 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi, fetchBaseQuery, skipToken } from '@reduxjs/toolkit/query/react';
 import { TCatalogItem, TCatalogItemDetails } from '../components/Catalog/CatalogItem';
 import { TCatalogCategory } from '../components/Catalog/CatalogCategories';
+import { TOrder } from '../components/Order';
 
 export type TResponseItemList = Array<TCatalogItem>;
 
 export type TResponseCategoryList = Array<TCatalogCategory>;
+
+export type TRequestOrderItem = {
+  id: number;
+  price: number;
+  count: number;
+  size: string;
+}
+
+export type TRequestOrderParams = {
+  owner: TOrder;
+  items: Array<TRequestOrderItem>;
+}
 
 export interface IRequestItemList {
   offset?: number;
@@ -36,8 +49,11 @@ export const api = createApi({
     item: build.query<TCatalogItemDetails, number>({
       query: (id) => ({ url: `items/${id}` }),
     }),
+    createOrder: build.query<unknown, TRequestOrderParams|typeof skipToken>({
+      query: (order=skipToken) => ({ url: 'order', method: 'POST', body: order }),
+    }),
   })
 })
 
-export const { useTopSalesQuery, useCategoriesQuery, useItemsQuery, useItemQuery } = api;
+export const { useTopSalesQuery, useCategoriesQuery, useItemsQuery, useItemQuery, useCreateOrderQuery } = api;
 export default api.reducer;
