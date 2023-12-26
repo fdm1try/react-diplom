@@ -1,0 +1,27 @@
+.btn-close {
+  background: none;
+  outline: none;
+  border: none;
+}
+
+.btn-close::before {
+  content: '✕';
+}
+
+.modal-error .btn-close::before {
+  color: white;
+}
+
+.modal-error .modal-header {
+  background-color: #851722;
+  color: white;
+}
+
+.modal-error .modal-body, .modal-error .modal-footer {
+  background-color: #fff;
+}
+
+.modal-error .modal-content {
+  color: #C82333;
+  background-color: transparent;
+}
