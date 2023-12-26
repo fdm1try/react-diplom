@@ -1,15 +1,14 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom';
 import { TCatalogItem } from './CatalogItem';
+import { formatPrice } from '../../../utils';
 
 export interface ICardView {
   item: TCatalogItem;
 }
 
 export const CardView: React.FC<ICardView> = ({item}) => {
-  const itemPrice = () => {
-    return `${Intl.NumberFormat().format(item.price)} руб.`;
-  }
+  const itemPrice = () => `${formatPrice(item.price)} руб.`;
 
   return (
     <div className='card catalog-item-card'>
