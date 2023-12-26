@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect, useRef } from 'react';
 import { useItemsQuery, IRequestItemList } from '../redux/api';
 import { TCatalogItem } from '../components/Catalog/CatalogItem';
@@ -21,7 +22,7 @@ export const useCatalogFilter = (props: IProps) => {
   const [queryParams, setQueryParams] = useState<IRequestItemList>({q: props.searchQuery, categoryId: props.categoryId});
   const [items, setItems] = useState<Array<TCatalogItem>>([]);
   const [hasMoreItems, setHasMoreItems] = useState<boolean>(true);
-  const { data, isLoading, isFetching, error } = useItemsQuery(queryParams);
+  const { data, isLoading, isFetching, error, refetch } = useItemsQuery(queryParams);
 
   useEffect(() => {
     if (!isPropsChanged()) return;
@@ -46,5 +47,5 @@ export const useCatalogFilter = (props: IProps) => {
     setQueryParams((state) => ({...state, offset: (state.offset || 0) + CATALOG_ITEMS_PER_PAGE}));
   }
 
-  return { items, isLoading: isLoading || isFetching, error, hasMoreItems, loadMoreItems};
+  return { items, isLoading: isLoading || isFetching, error, hasMoreItems, loadMoreItems, refetch};
 }
