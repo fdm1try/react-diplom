@@ -1,0 +1,49 @@
+.error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #C82333;
+  margin: 0.5em;
+  gap: 1em;
+}
+
+.error__title {
+  background-color: #C82333;
+  color: white;
+  padding: 0.3em 1em;
+  border-radius: 10px 0 0 10px;
+}
+
+.error__controls {
+  display: flex;
+  gap: 0.5em;
+  position: relative;
+}
+
+.error__controls-button {
+  background-color: #C82333;
+  color: white;
+  width: 2em;
+  height: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  outline: none;
+  border-radius: 100%;
+}
+
+.error__controls_retry:hover {
+  background-color: #9d1f2c;
+}
+
+.error__controls_info {
+  background-color: #FFCA2C;
+  color: black;
+  font-family: 'Courier New', monospace;
+  font-weight: bolder;
+}
+
+.error__controls_info:hover {
+  background-color: #efbd28;
+}
