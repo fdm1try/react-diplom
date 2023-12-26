@@ -1,11 +1,8 @@
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import { Footer } from '../components/Footer';
-import { Header } from '../components/Header';
-import { Banner } from '../components/Banner';
+/* eslint-disable react-hooks/exhaustive-deps */
 import { CatalogWidget } from '../components/CatalogWidget';
 import { useLocation } from 'react-router-dom';
 import React, { useEffect } from 'react';
+import { WithBanner } from './templates';
 
 export const CatalogPage = () => {
   const location = useLocation();
@@ -18,17 +15,8 @@ export const CatalogPage = () => {
   }, [location.state]);  
 
   return (
-    <>
-      <Header />
-      <main className='container'>
-        <Row>
-          <Col>
-            <Banner />
-            <CatalogWidget ref={catalogWidgetRef} withSearch={true} searchQuery={location.state?.searchQuery || undefined} />
-          </Col>
-        </Row>
-      </main>
-      <Footer />
-    </>
+    <WithBanner>
+      <CatalogWidget ref={catalogWidgetRef} withSearch={true} searchQuery={location.state?.searchQuery || undefined} />
+    </WithBanner>
   )
 }
