@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from 'react';
 import { useCategoriesQuery } from '../../redux/api';
+import { Loader } from '../Loader';
 
 export type TCatalogCategory = {
   id: number;
@@ -14,12 +15,12 @@ export interface ICatalogCategories {
 export const defaultCategory = { id: -1, title: 'Все'};
 
 export const CatalogCategories: React.FC<ICatalogCategories> = (props) => {
-  const { data, error, refetch } = useCategoriesQuery(null);
+  const { data, error, refetch, isLoading, isFetching } = useCategoriesQuery(null);
   const [currentId, setCurrentId] = useState<number>(-1);
   const [categories, setCategories] = useState<Array<TCatalogCategory>>([defaultCategory]);
 
   useEffect(() => {
-    refetch();
+    if (error) refetch();
   }, [error]);
 
   const categoryLinkClassName = (id: number) => {
@@ -42,19 +43,23 @@ export const CatalogCategories: React.FC<ICatalogCategories> = (props) => {
     if (!data) return;
     setCategories([defaultCategory, ...data]);
   }, [data])
-
   
   return (
-    <ul className='catalog-categories nav justify-content-center'>
-      {categories.map((category) => (
-        <li key={category.id} className='nav-item'>
-          <a data-id={category.id} onClick={handleCategoryLinkClick}
-            className={categoryLinkClassName(category.id)} href='#'
-          >
-            {category.title}
-          </a>
-        </li>
-      ))}
-    </ul>
+    <>
+      <ul className='catalog-categories nav justify-content-center'>
+        {categories.map((category) => (
+          <li key={category.id} className='nav-item'>
+            <a data-id={category.id} onClick={handleCategoryLinkClick}
+              className={categoryLinkClassName(category.id)} href='#'
+            >
+              {category.title}
+            </a>
+          </li>
+        ))}
+        {(isLoading || isFetching) && (
+          <li key='loader'><Loader inline /></li>
+        )}
+      </ul>
+    </>
   )
 }
