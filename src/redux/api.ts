@@ -37,7 +37,7 @@ export const api = createApi({
     categories: build.query<TResponseCategoryList, unknown>({
       query: () => ({ url: 'categories' }),
     }),
-    items: build.query<TResponseItemList, IRequestItemList>({
+    items: build.mutation<TResponseItemList, Partial<IRequestItemList>>({
       query: ({offset, categoryId, q}) => {
         const params = new URLSearchParams();
         if (offset) params.append('offset', offset.toString());
@@ -55,5 +55,5 @@ export const api = createApi({
   })
 })
 
-export const { useTopSalesQuery, useCategoriesQuery, useItemsQuery, useItemQuery, useCreateOrderQuery } = api;
+export const { useTopSalesQuery, useCategoriesQuery, useItemQuery, useCreateOrderQuery, useItemsMutation} = api;
 export default api.reducer;
