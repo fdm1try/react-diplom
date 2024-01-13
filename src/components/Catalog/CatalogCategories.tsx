@@ -9,6 +9,7 @@ export type TCatalogCategory = {
 }
 
 export interface ICatalogCategories {
+  categoryId?: number;
   onCategoryChange?: (category: TCatalogCategory) => void;
 }
 
@@ -16,7 +17,7 @@ export const defaultCategory = { id: -1, title: 'Все'};
 
 export const CatalogCategories: React.FC<ICatalogCategories> = (props) => {
   const { data, error, refetch, isLoading, isFetching } = useCategoriesQuery(null);
-  const [currentId, setCurrentId] = useState<number>(-1);
+  const [currentId, setCurrentId] = useState<number>(props.categoryId || defaultCategory.id);
   const [categories, setCategories] = useState<Array<TCatalogCategory>>([defaultCategory]);
 
   useEffect(() => {

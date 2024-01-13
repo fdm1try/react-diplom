@@ -24,7 +24,7 @@ export const Catalog: React.FC<ICatalog> = (props) => {
   return (
     <>
       <CatalogList view='card' items={items} />
-      { isLoading && <Loader /> }
+      { isLoading && !error && <Loader /> }
       <div className='text-center'>
         { hasMoreItems && !isLoading && !error && (
           <button className='btn btn-outline-primary' onClick={loadMoreItems}>Загрузить ещё</button>
