@@ -8,7 +8,6 @@ export interface ILoader {
 }
 
 export const Loader: React.FC<ILoader> = (props) => {
-  
   if (props.inline) return <InlineLoader />
 
   const className = () => `loader ${props.fullscreen ? 'loader-fullscreen' : ''}`;
