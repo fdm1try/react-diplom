@@ -1,47 +1,50 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { forwardRef, useEffect, useState } from 'react';
-import { Catalog, TCatalogFilter } from '../Catalog';
+import { useEffect, useRef } from 'react';
+import { Catalog } from '../Catalog';
 import { CatalogCategories, TCatalogCategory, defaultCategory } from '../Catalog/CatalogCategories';
 import { Search } from '../Search';
-import { useStateWithDelay } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
+import { setFilter } from '../../redux/slices/CatalogFilterSlice';
 
 export interface ICatalogWidget {
   withSearch?: boolean;
-  searchQuery?: string;
 }
 
-export const CatalogWidget = forwardRef<HTMLElement, ICatalogWidget>((props: ICatalogWidget, ref) => {
-  const [filter, setFilter] = useState<TCatalogFilter>({ searchQuery: props.withSearch && props.searchQuery || undefined });
-  const [searchQuery, setSearchQuery] = useStateWithDelay<string|undefined>(500, filter.searchQuery);
+export const CatalogWidget: React.FC<ICatalogWidget> = (props) => {
+  const dispatch = useAppDispatch();
+  const filter = useAppSelector((state) => state.catalogFilter);
+  const timeoutHandler = useRef<number>();
+
+  const catalogRef = useRef<HTMLElement>(null);
   
   const handleCategoryChange = (category: TCatalogCategory) => {
     const id = category.id === defaultCategory.id ? undefined : category.id;
-    setFilter((state) => ({...state, categoryId: id}));
+    dispatch(setFilter({...filter, categoryId: id }));
   }
 
   const handleSearchQueryChange = (value: string) => {
-    setSearchQuery(value);
+    if (timeoutHandler.current) clearTimeout(timeoutHandler.current);
+    timeoutHandler.current = setTimeout(() => dispatch(setFilter({...filter, searchQuery: value || undefined})), 500);
   }
 
   useEffect(() => {
-    setFilter((state) => ({...state, searchQuery}))
-  }, [searchQuery]);
+    if (!props.withSearch && filter.searchQuery)
+      dispatch(setFilter({ ...filter, searchQuery: undefined }));
+  }, []);
 
   useEffect(() => {
-    const query = props.withSearch && props.searchQuery || undefined;
-    setSearchQuery(query, true);
-  }, [props]);
-  
+    if (props.withSearch && filter.searchQuery) setTimeout(() => catalogRef.current?.scrollIntoView({ behavior: 'smooth' }), 100);
+  }, [filter.searchQuery]);
 
   return (
-    <section ref={ref} className='catalog'>
+    <section ref={catalogRef} className='catalog'>
       <h2 className='text-center'>Каталог</h2>
-      <CatalogCategories onCategoryChange={handleCategoryChange} />
+      <CatalogCategories categoryId={filter.categoryId} onCategoryChange={handleCategoryChange} />
       { props.withSearch && (
-        <Search className='catalog-search-form' value={searchQuery} 
+        <Search className='catalog-search-form' value={filter.searchQuery} 
           onChange={handleSearchQueryChange}/>
       )}
       <Catalog filter={filter} />
     </section>
   )
-});
+}
