@@ -1,3 +1,4 @@
+import './CatalogItem.css';
 import { CardView } from './CardView';
 import { DetailsView } from './DetailsView';
 

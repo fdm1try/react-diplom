@@ -1,0 +1,18 @@
+.catalog-item-card {
+  flex-grow: 1;
+}
+
+.catalog-item-card .card-img-top {
+  max-height: 20em;
+  object-fit: contain;
+}
+
+.catalog-item-card .card-body {
+  flex-grow: 0;
+  margin-top: auto;
+}
+
+.catalog .row .col-4 {
+  display: flex;
+}
+
