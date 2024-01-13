@@ -31,7 +31,7 @@ export const DetailsView: React.FC<IDetailsView> = ({item}) => {
 
   const handleCartButtonClick = () => {
     dispatch(addToCart({ ...item, size: selectedSize, count: quantity }));
-    navigate('/cart.html');
+    navigate('/cart');
   }
 
   return (

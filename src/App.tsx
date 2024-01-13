@@ -10,11 +10,11 @@ function App() {
   return (
     <Routes>
       <Route path='/' index Component={HomePage} />
-      <Route path='/catalog.html' Component={CatalogPage} />
-      <Route path='/about.html' Component={AboutPage} />
-      <Route path='/contacts.html' Component={ContactsPage} />
-      <Route path='/catalog/:id.html' Component={CatalogItemPage} />
-      <Route path='/cart.html' Component={CartPage} />
+      <Route path='/catalog' Component={CatalogPage} />
+      <Route path='/about' Component={AboutPage} />
+      <Route path='/contacts' Component={ContactsPage} />
+      <Route path='/catalog/:id' Component={CatalogItemPage} />
+      <Route path='/cart' Component={CartPage} />
       <Route path='*' Component={NotFoundPage} />
     </Routes>
   )

@@ -17,7 +17,7 @@ export const CardView: React.FC<ICardView> = ({item}) => {
       <div className='card-body'>
         <p className='card-text'>{item.title}</p>
         <p className='card-text'>{itemPrice()}</p>
-        <NavLink to={`/catalog/${item.id}.html`} className='btn btn-outline-primary'>
+        <NavLink to={`/catalog/${item.id}`} className='btn btn-outline-primary'>
           Заказать
         </NavLink>
       </div>

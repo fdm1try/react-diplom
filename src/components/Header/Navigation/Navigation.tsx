@@ -13,13 +13,13 @@ export const Navigation = () => {
         <NavLink className={navLinkClassName} to="/">Главная</NavLink>
       </li>
       <li className='nav-item'>
-        <NavLink className={navLinkClassName} to="/catalog.html">Каталог</NavLink>
+        <NavLink className={navLinkClassName} to="/catalog">Каталог</NavLink>
       </li>
       <li className='nav-item'>
-        <NavLink className={navLinkClassName} to="/about.html">О магазине</NavLink>
+        <NavLink className={navLinkClassName} to="/about">О магазине</NavLink>
       </li>
       <li className='nav-item'>
-        <NavLink className={navLinkClassName} to="/contacts.html">Контакты</NavLink>
+        <NavLink className={navLinkClassName} to="/contacts">Контакты</NavLink>
       </li>
     </ul>
   )

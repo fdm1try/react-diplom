@@ -6,7 +6,7 @@ export const CartControls = () => {
 
   const navigate = useNavigate();
 
-  const handleClick = () => navigate('/cart.html');
+  const handleClick = () => navigate('/cart');
 
   return (    
     <div onClick={handleClick} className='header-controls-pic header-controls-cart'>

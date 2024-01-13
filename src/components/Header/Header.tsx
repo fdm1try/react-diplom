@@ -20,13 +20,13 @@ export const Header = () => {
   }
 
   const handleSearchIconClick = () => {
-    const fromOtherPage = location.pathname !== '/catalog.html';
+    const fromOtherPage = location.pathname !== '/catalog';
     if (!fromOtherPage) {
       setSearchFormVisible(false);
       setSearchFormValue('');
     }
     if (searchFormValue) {
-      navigate('/catalog.html', { state: {searchQuery: searchFormValue, fromOtherPage}})
+      navigate('/catalog', { state: {searchQuery: searchFormValue, fromOtherPage}})
     } else {
       setSearchFormVisible((state) => !state);
     }

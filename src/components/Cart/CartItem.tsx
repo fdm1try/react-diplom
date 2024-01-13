@@ -29,7 +29,7 @@ export const CartItem: React.FC<ICartItem> = (props) => {
     <tr>
       <td scope='row'>{props.index}</td>
       <td>
-        <NavLink to={`/products/${props.item.id}.html`}>{props.item.title}</NavLink>
+        <NavLink to={`/catalog/${props.item.id}`}>{props.item.title}</NavLink>
       </td>
       <td>{props.item.size}</td>
       <td>{props.item.count}</td>
