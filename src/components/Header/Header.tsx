@@ -6,12 +6,13 @@ import { Navigation } from './Navigation';
 import { CartControls } from './CartControls';
 import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 
-
 export const Header = () => {
   const [searchFormVisible, setSearchFormVisible] = useState<boolean>(false);
   const [searchFormValue, setSearchFormValue] = useState<string>('');
   const navigate = useNavigate();
   const location = useLocation();
+
+  
 
   const searchFormClassName = () => {
     let className = 'header-controls-search-form form-inline';
@@ -21,15 +22,10 @@ export const Header = () => {
 
   const handleSearchIconClick = () => {
     const fromOtherPage = location.pathname !== '/catalog';
-    if (!fromOtherPage) {
-      setSearchFormVisible(false);
-      setSearchFormValue('');
-    }
     if (searchFormValue) {
       navigate('/catalog', { state: {searchQuery: searchFormValue, fromOtherPage}})
-    } else {
-      setSearchFormVisible((state) => !state);
     }
+    setSearchFormVisible((state) => !state);
   }
 
   const handleSearchFormSubmit = (e: React.FormEvent) => {
