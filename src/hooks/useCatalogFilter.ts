@@ -59,8 +59,10 @@ export const useCatalogFilter = (props: IProps) => {
 
   const loadMoreItems = () => {
     if (!itemsState.hasMoreItems) return;
-    fetchLatest(itemsState.items.length + CATALOG_ITEMS_PER_PAGE);
+    fetchLatest(itemsState.items.length);
   }
 
-  return { items: itemsState.items, isLoading, error, hasMoreItems: itemsState.hasMoreItems, loadMoreItems, refetch: fetchLatest};
+  const refetch = () => fetchLatest();
+
+  return { items: itemsState.items, isLoading, error, hasMoreItems: itemsState.hasMoreItems, loadMoreItems, refetch };
 }
