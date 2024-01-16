@@ -32,6 +32,9 @@ export const Catalog: React.FC<ICatalog> = (props) => {
         { !isLoading && error && (
           <Error variant='inline' details={errorDetails()} message={errorMessage} onRetry={refetch} />
         )}
+        { !hasMoreItems && (
+          <p>Показаны все товары по вашему запросу.</p>
+        )}
       </div>
     </>
   )
